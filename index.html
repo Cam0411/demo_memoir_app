@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <title>MemoirME: Tết Con Cừu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Berkshire+Swash&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <style>
+        body {
+            font-family: 'Quicksand', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .font-berkshire {
+            font-family: 'Berkshire Swash', cursive;
+        }
+        
+        #loader {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background-color: #7d54f8;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s ease-out;
+        }
+        #loader.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            transform: scale(0);
+            animation: ripple-effect 600ms linear;
+            background-color: rgba(255, 255, 255, 0.7);
+        }
+        @keyframes ripple-effect {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        @keyframes slide-out {
+            0% { transform: translateX(0); opacity: 1; }
+            100% { transform: translateX(-50px); opacity: 0; }
+        }
+        @keyframes slide-in {
+            0% { transform: translateX(50px); opacity: 0; }
+            100% { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes slide-out-reverse {
+            0% { transform: translateX(0); opacity: 1; }
+            100% { transform: translateX(50px); opacity: 0; }
+        }
+        @keyframes slide-in-reverse {
+            0% { transform: translateX(-50px); opacity: 0; }
+            100% { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes fade-in {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        @keyframes fade-out {
+            0% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        .slide-out { animation: slide-out 0.3s forwards; will-change: transform, opacity; }
+        .slide-in { animation: slide-in 0.3s forwards; will-change: transform, opacity; }
+        .slide-out-reverse { animation: slide-out-reverse 0.3s forwards; will-change: transform, opacity; }
+        .slide-in-reverse { animation: slide-in-reverse 0.3s forwards; will-change: transform, opacity; }
+        .fade-in { animation: fade-in 0.5s forwards; will-change: opacity; }
+        .fade-out { animation: fade-out 0.5s forwards; will-change: opacity; }
+
+
+        /* --- Animations for liveliness --- */
+        @keyframes petal-fall {
+            0% {
+                transform: translateY(-100%) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0.8;
+            }
+        }
+        .animate-petal-fall {
+            animation-name: petal-fall;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% {
+                box-shadow: 0 0 8px #a78bfa, 0 0 16px #a78bfa;
+            }
+            50% {
+                box-shadow: 0 0 16px #7d54f8, 0 0 32px #7d54f8;
+            }
+        }
+        .animate-pulse-glow {
+            animation: pulse-glow 2.5s infinite ease-in-out;
+        }
+        
+        @keyframes mascot-float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+        .mascot-float { animation: mascot-float 4s ease-in-out infinite; }
+        
+        @keyframes mascot-thinking {
+            0% { transform: rotate(0deg) translateY(0); }
+            25% { transform: rotate(5deg) translateY(-5px); }
+            75% { transform: rotate(-5deg) translateY(-5px); }
+            100% { transform: rotate(0deg) translateY(0); }
+        }
+        .mascot-thinking { animation: mascot-thinking 1.5s ease-in-out; }
+
+        @keyframes celebrate-hop {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-15px) scale(1.05); }
+        }
+        .mascot-celebrate { animation: celebrate-hop 1s ease-in-out infinite; }
+
+        @keyframes cta-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+        }
+        .animate-cta-pulse {
+            animation: cta-pulse 2s infinite ease-in-out;
+        }
+        
+        .dynamic-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 70% 30%, rgba(125, 84, 248, 0.15), transparent 40%);
+            animation: move-glow 20s infinite alternate ease-in-out;
+            z-index: 1;
+        }
+        @keyframes move-glow {
+            0% {
+                background: radial-gradient(circle at 70% 30%, rgba(125, 84, 248, 0.15), transparent 40%);
+            }
+            50% {
+                 background: radial-gradient(circle at 30% 70%, rgba(255, 48, 113, 0.15), transparent 40%);
+            }
+            100% {
+                background: radial-gradient(circle at 80% 60%, rgba(254, 245, 250, 0.1), transparent 40%);
+            }
+        }
+
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "gsap": "https://esm.sh/gsap@^3.14.2"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body class="bg-[#7d54f8]">
+    <div id="loader">
+      <div class="w-40 h-56">
+        <svg viewBox="0 0 200 300" xmlns="http://www.w3.org/2000/svg">
+          <g transform="translate(100, 290)">
+            <g class="mascot-float">
+              <!-- Trunk -->
+              <path d="M0,0 V-75" stroke="#5D4037" stroke-width="8" fill="none" stroke-linecap="round" />
+              
+              <!-- Branches -->
+              <g>
+                <path d="M0,-70 C10,-90 30,-100 50,-120" stroke="#5D4037" stroke-width="5" fill="none" stroke-linecap="round" />
+                <path d="M0,-50 C-10,-75 -30,-80 -60,-100" stroke="#5D4037" stroke-width="5" fill="none" stroke-linecap="round" />
+                <path d="M-60,-100 C-75,-110 -80,-125 -75,-140" stroke="#5D4037" stroke-width="3" fill="none" stroke-linecap="round" />
+                <path d="M50,-120 C65,-130 75,-145 70,-160" stroke="#5D4037" stroke-width="3" fill="none" stroke-linecap="round" />
+                <path d="M0,-25 C 15, -35, 20, -50, 30, -60" stroke="#5D4037" stroke-width="4" fill="none" stroke-linecap="round" />
+              </g>
+    
+              <!-- Blossoms -->
+              <g>
+                <g transform="translate(50, -120)"><circle r="6" fill="#a78bfa"/><circle r="2" fill="#fef5fa"/></g>
+                <g transform="translate(-60, -100)"><circle r="6" fill="#ff3071"/><circle r="2" fill="#fef5fa"/></g>
+                <g transform="translate(-75, -140)"><circle r="7" fill="#fef5fa"/><circle r="2.5" fill="#a78bfa"/></g>
+                <g transform="translate(70, -160)"><circle r="7" fill="#a78bfa"/><circle r="2.5" fill="#ff3071"/></g>
+                <g transform="translate(30, -60)"><circle r="5" fill="#ff3071"/><circle r="1.5" fill="#fef5fa"/></g>
+                <g transform="translate(57.5, -127.5)"><circle r="4" fill="#fef5fa"/><circle r="1.5" fill="#a78bfa"/></g>
+                <g transform="translate(-67.5, -107.5)"><circle r="4" fill="#a78bfa"/><circle r="1.5" fill="#ff3071"/></g>
+                <g transform="translate(-80, -145)"><circle r="5" fill="#ff3071"/><circle r="2" fill="#fef5fa"/></g>
+                <g transform="translate(75, -165)"><circle r="5" fill="#fef5fa"/><circle r="2" fill="#a78bfa"/></g>
+                <g transform="translate(35, -67.5)"><circle r="3.5" fill="#a78bfa"/><circle r="1" fill="#ff3071"/></g>
+              </g>
+            </g>
+          </g>
+        </svg>
+      </div>
+      <p class="text-[#fef5fa] text-lg font-semibold">Đang tải...</p>
+    </div>
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+</body>
+</html>
