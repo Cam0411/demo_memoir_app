@@ -197,7 +197,7 @@ const QuizFlow: React.FC = () => {
                     <span>Chúng tôi tôn trọng quyền riêng tư của bạn. Email sẽ chỉ được dùng để gửi cập nhật về MemoirME.</span>
                 </p>
                 <button type="submit" disabled={isSubmitting} className="relative overflow-hidden w-full px-8 py-4 bg-gradient-to-r from-[#7d54f8] to-[#a78bfa] text-white font-bold rounded-full text-lg hover:scale-105 transition-transform disabled:opacity-70 disabled:cursor-not-allowed shadow-lg animate-pulse-glow">
-                    {isSubmitting ? 'Đang gửi...' : 'Hoàn tất & Nhận Lì Xì 🧧'}
+                    {isSubmitting ? 'Đang gửi...' : 'Hoàn tất & Lưu trữ ký ức trong hôm nay!'}
                 </button>
             </form>
          </div>

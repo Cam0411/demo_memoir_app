@@ -24,14 +24,14 @@ const StartScreen: React.FC<StartScreenProps> = ({ onStart }) => {
           <h1 className="font-berkshire text-5xl sm:text-6xl md:text-7xl bg-gradient-to-r from-[#fef5fa] to-[#c4b5fd] bg-clip-text text-transparent" style={{ textShadow: '3px 3px 10px rgba(196, 181, 253, 0.3)' }}>
             MemoirME
           </h1>
-          <p className="text-[#fef5fa]/80 text-lg mt-2">Viết Lên Câu Chuyện Của Bạn</p>
+          <p className="text-[#fef5fa]/80 text-lg mt-2"> Hiểu bản thân 100% — liệu bạn có tự tin? Thử ngay bài test để giải mã con người thật của bạn</p>
         </div>
 
         <button
           onClick={handleStartClick}
           className="relative overflow-hidden w-64 px-8 py-4 bg-gradient-to-r from-[#7d54f8] to-[#a78bfa] text-white font-bold rounded-full text-xl hover:scale-105 transition-transform shadow-lg animate-pulse-glow"
         >
-          Bắt đầu 🧧
+          Bắt đầu
         </button>
       </main>
     </div>
